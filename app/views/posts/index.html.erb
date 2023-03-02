@@ -1,0 +1,24 @@
+<h1>Posts</h1>
+<p> You are signed in as <%= user_signed_in? ? current_user.email : "none" %></p>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      Title    Author
+    </li>
+    <li>
+      <%= link_to post.title, post %>
+      <%= @user ? post.user.email : "Sign in to see author" %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Post", new_post_path %>
+<% if @user %>
+<%= link_to "Sign out", destroy_user_session_path, data: {
+                    turbo_method: :delete
+                  } %>
+<% else %>
+<%= link_to "Sign up", new_user_registration_path %>
+<%= link_to "Log in", new_user_session_path %>
+<% end %>
